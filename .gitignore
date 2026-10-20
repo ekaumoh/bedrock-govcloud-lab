@@ -1,0 +1,32 @@
+# Local environment and secrets
+.env
+*.env
+!.env.example
+.aws/
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+terraform.tfvars
+*.auto.tfvars
+override.tf
+override.tf.json
+
+# Lab state and downloaded logs (may contain prompts or account IDs)
+.bedrock-lab/
+*.json.gz
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+.ruff_cache/

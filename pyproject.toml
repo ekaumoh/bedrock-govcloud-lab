@@ -1,0 +1,12 @@
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+src = ["src"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "SIM"]
+# S101: asserts are fine in a lab
+ignore = ["S101"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["labutil"]

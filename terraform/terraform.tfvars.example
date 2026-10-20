@@ -1,0 +1,14 @@
+# Copy to terraform.tfvars (git-ignored).
+
+region      = "us-east-1" # GovCloud: "us-gov-west-1"
+name_prefix = "bedrock-lab"
+model_id    = "amazon.nova-pro-v1:0"
+# model_id  = "anthropic.claude-sonnet-5"   # GovCloud IL4/IL5 option as of Oct 2026
+
+# Required for CUI. Leave null for a commercial lab.
+# kms_key_arn = "REPLACE_ME"
+
+# Invocation logging is one setting per account per Region. Set false if the
+# account already has a logging configuration you must not replace.
+enable_invocation_logging = true
+force_destroy_log_bucket  = true

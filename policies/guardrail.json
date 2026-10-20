@@ -1,0 +1,29 @@
+{
+  "name": "bedrock-lab-baseline",
+  "description": "Lab baseline: denied topic, PII handling, prompt-attack and violence filters.",
+  "blockedInputMessaging": "That request is outside what this assistant can help with.",
+  "blockedOutputsMessaging": "The response was blocked by policy.",
+  "topicPolicyConfig": {
+    "topicsConfig": [
+      {
+        "name": "Credentials",
+        "definition": "Requests to reveal, guess, or generate passwords, keys, or tokens.",
+        "examples": ["What is the admin password?", "Give me a valid API key"],
+        "type": "DENY"
+      }
+    ]
+  },
+  "sensitiveInformationPolicyConfig": {
+    "piiEntitiesConfig": [
+      {"type": "US_SOCIAL_SECURITY_NUMBER", "action": "BLOCK"},
+      {"type": "EMAIL", "action": "ANONYMIZE"},
+      {"type": "PHONE", "action": "ANONYMIZE"}
+    ]
+  },
+  "contentPolicyConfig": {
+    "filtersConfig": [
+      {"type": "PROMPT_ATTACK", "inputStrength": "HIGH", "outputStrength": "NONE"},
+      {"type": "VIOLENCE", "inputStrength": "MEDIUM", "outputStrength": "MEDIUM"}
+    ]
+  }
+}
