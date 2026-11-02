@@ -41,34 +41,7 @@ This repo builds all of those in about three hours. Every script and Terraform f
 
 ## Architecture
 
-```mermaid
-flowchart LR
-    app["Your code<br/>(AWS CLI, boto3)"]
-    iam["IAM role<br/>one model only"]
-
-    subgraph vpc["Your VPC (optional)"]
-        vpce["Interface endpoint<br/>bedrock-runtime"]
-    end
-
-    subgraph bedrock["Amazon Bedrock"]
-        kbr["Retrieve API"]
-        kb[("Managed Knowledge Base<br/>Titan Embeddings V2")]
-        rt["Converse API"]
-        gr["Guardrail v1<br/>topics · PII · prompt attack"]
-        prof["Inference profile<br/>us. / us-gov."]
-        fm["Foundation model<br/>Nova Pro / Claude"]
-    end
-
-    docs[("S3: source documents<br/>versioned")]
-    logs[("S3: invocation logs<br/>private · encrypted")]
-
-    iam -. authorizes .-> app
-    app -- "1 · search" --> kbr --> kb
-    docs -. ingest .-> kb
-    app -- "2 · question + sources" --> vpce --> rt
-    rt --> gr --> prof --> fm
-    rt -. "every call" .-> logs
-```
+![Architecture diagram](docs/architecture.svg)
 
 **Request path.** Your code retrieves matching chunks from the Knowledge Base, then sends the question plus those chunks to `Converse`. The guardrail screens the input, the inference profile routes to the model, and the guardrail screens the output. Bedrock writes the full exchange to the log bucket.
 

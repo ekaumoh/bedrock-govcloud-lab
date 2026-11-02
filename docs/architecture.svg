@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 480" width="1000" height="480" font-family="Helvetica, Arial, sans-serif" role="img">
+  <title>Bedrock GovCloud-ready lab architecture</title>
+  <desc>Your code retrieves from a Managed Knowledge Base, then sends the question and sources through an optional VPC endpoint to the Converse API, which applies a guardrail and routes through an inference profile to the model. Every call is logged to S3.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1L9 5L1 9" fill="none" stroke="#444" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <rect width="1000" height="480" fill="#ffffff"/>
+
+  <!-- Amazon Bedrock container -->
+  <rect x="450" y="20" width="530" height="440" rx="16" fill="#EEEDFE" stroke="#534AB7" stroke-width="1"/>
+  <text x="470" y="46" font-size="15" font-weight="bold" fill="#3C3489">Amazon Bedrock</text>
+
+  <!-- VPC container -->
+  <rect x="230" y="250" width="190" height="110" rx="12" fill="none" stroke="#5F5E5A" stroke-width="1" stroke-dasharray="6 4"/>
+  <text x="242" y="270" font-size="12" fill="#5F5E5A">Your VPC (optional)</text>
+
+  <!-- Left column -->
+  <rect x="20" y="60" width="170" height="60" rx="8" fill="#E1F5EE" stroke="#0F6E56"/>
+  <text x="105" y="85" font-size="14" font-weight="bold" fill="#085041" text-anchor="middle">IAM role</text>
+  <text x="105" y="104" font-size="12" fill="#0F6E56" text-anchor="middle">one model only</text>
+
+  <rect x="20" y="190" width="170" height="60" rx="8" fill="#E1F5EE" stroke="#0F6E56"/>
+  <text x="105" y="215" font-size="14" font-weight="bold" fill="#085041" text-anchor="middle">Your code</text>
+  <text x="105" y="234" font-size="12" fill="#0F6E56" text-anchor="middle">AWS CLI and boto3</text>
+
+  <!-- S3 boxes -->
+  <rect x="230" y="60" width="190" height="60" rx="8" fill="#FAEEDA" stroke="#854F0B"/>
+  <text x="325" y="85" font-size="14" font-weight="bold" fill="#633806" text-anchor="middle">S3 source documents</text>
+  <text x="325" y="104" font-size="12" fill="#854F0B" text-anchor="middle">versioned</text>
+
+  <rect x="230" y="390" width="190" height="60" rx="8" fill="#FAEEDA" stroke="#854F0B"/>
+  <text x="325" y="415" font-size="14" font-weight="bold" fill="#633806" text-anchor="middle">S3 invocation logs</text>
+  <text x="325" y="434" font-size="12" fill="#854F0B" text-anchor="middle">private, encrypted</text>
+
+  <!-- VPC endpoint -->
+  <rect x="245" y="282" width="160" height="60" rx="8" fill="#F1EFE8" stroke="#5F5E5A"/>
+  <text x="325" y="307" font-size="14" font-weight="bold" fill="#444441" text-anchor="middle">Interface endpoint</text>
+  <text x="325" y="326" font-size="12" fill="#5F5E5A" text-anchor="middle">bedrock-runtime</text>
+
+  <!-- Bedrock internals -->
+  <rect x="650" y="60" width="310" height="60" rx="8" fill="#ffffff" stroke="#534AB7"/>
+  <text x="805" y="85" font-size="14" font-weight="bold" fill="#3C3489" text-anchor="middle">Managed Knowledge Base</text>
+  <text x="805" y="104" font-size="12" fill="#534AB7" text-anchor="middle">Titan Text Embeddings V2</text>
+
+  <rect x="470" y="140" width="150" height="50" rx="8" fill="#ffffff" stroke="#534AB7"/>
+  <text x="545" y="170" font-size="14" font-weight="bold" fill="#3C3489" text-anchor="middle">Retrieve API</text>
+
+  <rect x="470" y="280" width="150" height="50" rx="8" fill="#ffffff" stroke="#534AB7"/>
+  <text x="545" y="310" font-size="14" font-weight="bold" fill="#3C3489" text-anchor="middle">Converse API</text>
+
+  <rect x="650" y="270" width="150" height="70" rx="8" fill="#ffffff" stroke="#534AB7"/>
+  <text x="725" y="295" font-size="14" font-weight="bold" fill="#3C3489" text-anchor="middle">Guardrail v1</text>
+  <text x="725" y="313" font-size="12" fill="#534AB7" text-anchor="middle">topics, PII,</text>
+  <text x="725" y="328" font-size="12" fill="#534AB7" text-anchor="middle">prompt attack</text>
+
+  <rect x="820" y="270" width="140" height="70" rx="8" fill="#ffffff" stroke="#534AB7"/>
+  <text x="890" y="298" font-size="14" font-weight="bold" fill="#3C3489" text-anchor="middle">Inference profile</text>
+  <text x="890" y="317" font-size="12" fill="#534AB7" text-anchor="middle">us. or us-gov.</text>
+
+  <rect x="820" y="370" width="140" height="70" rx="8" fill="#ffffff" stroke="#534AB7"/>
+  <text x="890" y="398" font-size="14" font-weight="bold" fill="#3C3489" text-anchor="middle">Foundation model</text>
+  <text x="890" y="417" font-size="12" fill="#534AB7" text-anchor="middle">Nova Pro or Claude</text>
+
+  <!-- Arrows -->
+  <line x1="105" y1="120" x2="105" y2="186" stroke="#444" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#a)"/>
+  <text x="114" y="158" font-size="12" fill="#444">authorizes</text>
+
+  <line x1="190" y1="210" x2="466" y2="168" stroke="#444" stroke-width="1.4" marker-end="url(#a)"/>
+  <text x="300" y="180" font-size="12" fill="#444">1  search</text>
+
+  <line x1="620" y1="155" x2="700" y2="123" stroke="#444" stroke-width="1.4" marker-end="url(#a)"/>
+
+  <line x1="420" y1="90" x2="646" y2="90" stroke="#444" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#a)"/>
+  <text x="510" y="82" font-size="12" fill="#444">ingest</text>
+
+  <line x1="190" y1="236" x2="242" y2="296" stroke="#444" stroke-width="1.4" marker-end="url(#a)"/>
+  <text x="30" y="272" font-size="12" fill="#444">2  question + sources</text>
+
+  <line x1="405" y1="310" x2="466" y2="305" stroke="#444" stroke-width="1.4" marker-end="url(#a)"/>
+  <line x1="620" y1="305" x2="646" y2="305" stroke="#444" stroke-width="1.4" marker-end="url(#a)"/>
+  <line x1="800" y1="305" x2="816" y2="305" stroke="#444" stroke-width="1.4" marker-end="url(#a)"/>
+  <line x1="890" y1="340" x2="890" y2="366" stroke="#444" stroke-width="1.4" marker-end="url(#a)"/>
+
+  <path d="M545 330 L545 420 L424 420" fill="none" stroke="#444" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#a)"/>
+  <text x="555" y="410" font-size="12" fill="#444">every call</text>
+</svg>
